@@ -12,13 +12,12 @@ public class Indexer {
 		this.bufferReader = new BufferedReader(fileReader);
 		this.database = database;
 	}
-	public void IndexLines(String line) throws Exception{
+	public void IndexLine(String line) throws Exception{
 		String[] words = line.split("\\s+");
 		
 		if (words[0].length() == 0) return;
-		String fieldName = words[0];
-		for (int i=1; i<words.length; i++){
-			Field field = new Field( fieldName,words[i]);
+		for (int i=0; i<words.length; i++){
+			Field field = new Field(fileName,words[i]);
 			database.SetField(field);
 		}
 	}
@@ -27,7 +26,7 @@ public class Indexer {
 		line = bufferReader.readLine();
 		while(true){
 			if(line==null) break;
-			IndexLines(line);
+			IndexLine(line);
 			line = bufferReader.readLine();
 		}
 	}
